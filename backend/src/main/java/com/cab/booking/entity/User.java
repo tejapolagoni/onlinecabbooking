@@ -2,18 +2,35 @@ package com.cab.booking.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Name is required")
+    @Size(max = 100, message = "Name must be under 100 characters")
     private String name;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email must be valid")
     @Column(unique = true)
     private String email;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    @Pattern(regexp = "^[0-9+()\-\s]{7,20}$", message = "Phone must be a valid contact number")
     private String phone;
+
+    @Pattern(regexp = "^(USER|DRIVER|ADMIN)$", message = "Role must be USER, DRIVER, or ADMIN")
     private String role;          // USER, DRIVER, ADMIN
     private String vehicleNumber; // only for drivers
     private String vehicleType;   // only for drivers

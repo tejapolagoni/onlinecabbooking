@@ -1,6 +1,9 @@
 package com.cab.booking.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Entity
@@ -8,10 +11,19 @@ import java.time.LocalDateTime;
 public class Booking {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "User ID is required")
+    @Positive(message = "User ID must be positive")
     private Long userId;
+
     private Long driverId;
+
+    @NotBlank(message = "Pickup location is required")
     private String pickup;
+
+    @NotBlank(message = "Drop location is required")
     private String dropLocation;
+
     private int distanceKm;
     private double fare;
     private String status; // PENDING, ACCEPTED, COMPLETED, CANCELLED
