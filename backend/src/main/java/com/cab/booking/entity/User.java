@@ -27,7 +27,7 @@ public class User {
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    @Pattern(regexp = "^[0-9+()\-\s]{7,20}$", message = "Phone must be a valid contact number")
+    @Pattern(regexp = "^[0-9+()\\s-]{7,20}$", message = "Phone must be a valid contact number")
     private String phone;
 
     @Pattern(regexp = "^(USER|DRIVER|ADMIN)$", message = "Role must be USER, DRIVER, or ADMIN")
